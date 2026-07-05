@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>猫猫吃鱼大冒险</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ==================== 背景层：天空 + 海面 + 沙滩 ==================== -->
+    <div class="bg-container">
+        <!-- 天空层：浅蓝渐变，包含漂浮白云 -->
+        <div class="bg-sky">
+            <div class="cloud cloud-1">☁️</div>
+            <div class="cloud cloud-2">☁️</div>
+            <div class="cloud cloud-3">☁️</div>
+            <div class="cloud cloud-4">☁️</div>
+        </div>
+
+        <!-- 海面层：浅蓝海面 + 波浪动画 -->
+        <div class="bg-sea">
+            <div class="waves-container">
+                <div class="wave wave-1"></div>
+                <div class="wave wave-2"></div>
+                <div class="wave wave-3"></div>
+            </div>
+        </div>
+
+        <!-- 沙滩层：浅米色沙滩 -->
+        <div class="bg-sand">
+            <!-- 沙滩纹理装饰点 -->
+            <span class="sand-dot" style="top:15%;left:10%;">🐚</span>
+            <span class="sand-dot" style="top:25%;left:75%;">🪸</span>
+            <span class="sand-dot" style="top:10%;left:50%;">⭐</span>
+        </div>
+    </div>
+
+    <!-- ==================== 动态装饰层：气泡 + 游动小鱼 ==================== -->
+    <div class="bubbles-layer" id="bubblesLayer"></div>
+    <div class="swimming-fish-layer" id="swimmingFishLayer"></div>
+
+    <!-- ==================== 页面容器层（SPA 单页导航） ==================== -->
+
+    <!-- 首页 -->
+    <div class="page-container active" id="pageHome">
+    <!-- ==================== 主内容区（覆盖在背景之上） ==================== -->
+    <div class="main-content">
+
+        <!-- 顶部标题区 -->
+        <header class="title-area">
+            <!-- 标题上方静态橘猫装饰 -->
+            <div class="title-cat-decoration">
+                <span class="title-cat-emoji">🐱</span>
+            </div>
+            <!-- 标题文字 + 两侧动态装饰 -->
+            <div class="title-wrapper">
+                <!-- 左侧装饰：泡泡 + 小鱼 -->
+                <div class="title-deco title-deco-left">
+                    <span class="deco-bubble">🫧</span>
+                    <span class="deco-fish">🐟</span>
+                </div>
+                <!-- 游戏大标题 -->
+                <h1 class="game-title">
+                    <span class="title-text">猫猫吃鱼大冒险</span>
+                </h1>
+                <!-- 右侧装饰：泡泡 + 小鱼 -->
+                <div class="title-deco title-deco-right">
+                    <span class="deco-bubble">🫧</span>
+                    <span class="deco-fish">🐠</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 中间核心视觉区：CSS 绘制的卡通小猫 -->
+        <section class="hero-area">
+            <div class="cat-character" id="mainCat">
+                <!-- 猫头 -->
+                <div class="cat-head">
+                    <!-- 脸部五官 -->
+                    <div class="cat-face">
+                        <!-- 眼睛区域 -->
+                        <div class="cat-eyes">
+                            <div class="cat-eye cat-eye-left">
+                                <div class="cat-eyelid"></div>
+                                <div class="cat-pupil"></div>
+                                <div class="cat-shine"></div>
+                            </div>
+                            <div class="cat-eye cat-eye-right">
+                                <div class="cat-eyelid"></div>
+                                <div class="cat-pupil"></div>
+                                <div class="cat-shine"></div>
+                            </div>
+                        </div>
+                        <!-- 鼻子 -->
+                        <div class="cat-nose"></div>
+                        <!-- 嘴巴 -->
+                        <div class="cat-mouth">
+                            <span class="mouth-line"></span>
+                        </div>
+                        <!-- 腮红 -->
+                        <div class="cat-blush cat-blush-left"></div>
+                        <div class="cat-blush cat-blush-right"></div>
+                    </div>
+                    <!-- 胡须 -->
+                    <div class="cat-whiskers-group cat-whiskers-left">
+                        <span class="whisker w1"></span>
+                        <span class="whisker w2"></span>
+                        <span class="whisker w3"></span>
+                    </div>
+                    <div class="cat-whiskers-group cat-whiskers-right">
+                        <span class="whisker w1"></span>
+                        <span class="whisker w2"></span>
+                        <span class="whisker w3"></span>
+                    </div>
+                </div>
+                <!-- 身体区域 -->
+                <div class="cat-body">
+                    <!-- 尾巴 -->
+                    <div class="cat-tail"></div>
+                    <!-- 爪子 -->
+                    <div class="cat-paws">
+                        <div class="paw paw-left"></div>
+                        <div class="paw paw-right"></div>
+                    </div>
+                </div>
+                <!-- 小猫周围装饰小鱼 -->
+                <span class="cat-nearby-fish fish-1">🐟</span>
+                <span class="cat-nearby-fish fish-2">🐠</span>
+            </div>
+        </section>
+
+        <!-- 按钮功能区 -->
+        <section class="buttons-area">
+            <!-- 主按钮：开始游戏（最大最显眼） -->
+            <button class="btn btn-start" id="btnStart" title="开始游戏">
+                <span class="btn-icon-left">🐱</span>
+                <span class="btn-label">开始游戏</span>
+                <span class="btn-icon-right">🐟</span>
+            </button>
+
+            <!-- 三个功能小按钮：横向排列 -->
+            <div class="btn-group">
+                <button class="btn btn-small btn-settings" id="btnSettings" title="游戏设置">
+                    <span class="btn-icon">⚙️</span>
+                    <span>游戏设置</span>
+                </button>
+                <button class="btn btn-small btn-leaderboard" id="btnLeaderboard" title="排行榜">
+                    <span class="btn-icon">🏆</span>
+                    <span>排行榜</span>
+                </button>
+                <button class="btn btn-small btn-instructions" id="btnInstructions" title="游戏说明">
+                    <span class="btn-icon">❓</span>
+                    <span>游戏说明</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 底部区域 -->
+        <footer class="footer-area">
+            <p class="copyright">猫猫吃鱼小游戏 ©2026</p>
+            <div class="home-evil-display" id="homeEvilCountText">👿 邪恶哈基米累计值：0</div>
+            <div class="footer-fish-decoration">
+                <span class="footer-fish">🐟</span>
+            </div>
+        </footer>
+    </div><!-- /.main-content -->
+    </div><!-- /#pageHome -->
+
+    <!-- 难度选择页 -->
+    <div class="page-container" id="pageDifficulty">
+        <div class="main-content">
+            <!-- 返回按钮 -->
+            <button class="btn-back" id="btnBackToHome" aria-label="返回首页">
+                <span>← 返回首页</span>
+            </button>
+
+            <!-- 标题 -->
+            <div class="title-area">
+                <div class="title-cat-decoration">
+                    <span class="title-cat-emoji">🐱</span>
+                </div>
+                <div class="title-wrapper">
+                    <div class="title-deco title-deco-left">
+                        <span class="deco-bubble">🫧</span>
+                        <span class="deco-fish">🐟</span>
+                    </div>
+                    <h1 class="game-title">
+                        <span class="title-text difficulty-title">选择游戏难度</span>
+                    </h1>
+                    <div class="title-deco title-deco-right">
+                        <span class="deco-bubble">🫧</span>
+                        <span class="deco-fish">🐠</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 限时挑战模式按钮 -->
+            <button class="btn-timed-challenge" id="btnTimedMode" title="限时挑战模式">
+                <span class="timed-btn-icon">⏱️</span>
+                <span>限时挑战</span>
+                <span class="timed-btn-desc">60秒极限得分</span>
+            </button>
+
+            <!-- 难度卡片列表 -->
+            <section class="difficulty-cards">
+                <!-- 简单模式 -->
+                <div class="diff-card diff-easy" data-difficulty="easy" role="button" tabindex="0">
+                    <span class="diff-icon">🟢</span>
+                    <div class="diff-info">
+                        <span class="diff-name">简单模式</span>
+                        <span class="diff-desc">新手友好，障碍物很少</span>
+                        <span class="diff-meta">🐟 +10分 · 🐢 慢速 · 💚 低频率</span>
+                    </div>
+                </div>
+
+                <!-- 一般模式（默认推荐） -->
+                <div class="diff-card diff-normal recommended" data-difficulty="normal" role="button" tabindex="0">
+                    <span class="diff-badge">推荐</span>
+                    <span class="diff-icon">🟠</span>
+                    <div class="diff-info">
+                        <span class="diff-name">一般模式</span>
+                        <span class="diff-desc">节奏适中，适合日常游玩</span>
+                        <span class="diff-meta">🐟 +15分 · 🐱 中速 · 🧡 中等频率</span>
+                    </div>
+                </div>
+
+                <!-- 困难模式 -->
+                <div class="diff-card diff-hard" data-difficulty="hard" role="button" tabindex="0">
+                    <span class="diff-icon">🔴</span>
+                    <div class="diff-info">
+                        <span class="diff-name">困难模式</span>
+                        <span class="diff-desc">手速挑战，障碍物密集</span>
+                        <span class="diff-meta">🐟 +20分 · ⚡ 快速 · ❤️ 高频率</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 底部装饰 -->
+            <footer class="footer-area">
+                <p class="copyright">猫猫吃鱼小游戏 ©2026</p>
+                <div class="footer-fish-decoration">
+                    <span class="footer-fish">🐟</span>
+                </div>
+            </footer>
+        </div><!-- /.main-content -->
+    </div><!-- /#pageDifficulty -->
+
+    <!-- 游戏主场景 -->
+    <div class="page-container" id="pageGame">
+        <!-- HUD 信息栏 -->
+        <div class="game-hud">
+            <div class="hud-lives" id="hudLives">❤️❤️❤️</div>
+            <div class="hud-score" id="hudScore">🏆 0</div>
+            <div class="hud-center-group">
+                <span class="hud-difficulty" id="hudDifficulty">一般</span>
+                <!-- 【新增】限时模式倒计时 -->
+                <span class="hud-timer" id="hudTimer" style="display:none;">⏱️ 60s</span>
+            </div>
+            <!-- 【新增】连击显示 -->
+            <span class="hud-combo" id="hudCombo" style="display:none;">🔥 x1</span>
+            <span class="hud-evil-count" id="hudEvilCount">邪恶哈基米：0</span>
+            <button class="hud-pause" id="btnPause" aria-label="暂停游戏">⏸️</button>
+            <button class="hud-exit" id="btnExitGame" aria-label="退出游戏">✕</button>
+        </div>
+
+        <!-- 游戏区域 -->
+        <div class="game-area" id="gameArea">
+            <!-- 【新增】道具生效状态指示器（默认隐藏） -->
+            <div class="powerup-indicator" id="powerupIndicator" style="display:none;">
+                <span class="powerup-indicator-icon" id="powerupIndicatorIcon">🐠</span>
+                <span class="powerup-indicator-text" id="powerupIndicatorText">双倍分数</span>
+                <span class="powerup-indicator-timer" id="powerupIndicatorTimer">10s</span>
+            </div>
+            <!-- 【新增】连击弹字层 -->
+            <div class="combo-popup" id="comboPopup" style="display:none;"></div>
+            <!-- 玩家小猫（CSS绘制，通过 data-skin 属性切换皮肤） -->
+            <div class="game-player skin-orange" id="gamePlayer" data-skin="orange">
+                <div class="gp-head"></div>
+                <div class="gp-body"></div>
+                <div class="gp-tail"></div>
+            </div>
+            <!-- 掉落物品由 JS 动态生成在 gameArea 内 -->
+        </div>
+
+        <!-- 移动端触摸提示 -->
+        <div class="game-touch-hint" id="touchHint">
+            <span>👆 左右滑动屏幕控制猫咪移动</span>
+        </div>
+    </div><!-- /#pageGame -->
+
+    <!-- ==================== 弹窗层（默认隐藏） ==================== -->
+
+    <!-- 游戏设置弹窗 -->
+    <div class="modal-overlay" id="modalSettings" role="dialog" aria-hidden="true">
+        <div class="modal">
+            <button class="modal-close" aria-label="关闭">&times;</button>
+            <h2 class="modal-title">⚙️ 游戏设置</h2>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <span class="setting-label">🎵 背景音乐</span>
+                    <label class="toggle-switch" title="切换背景音乐">
+                        <input type="checkbox" id="toggleMusic" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">🔊 游戏音效</span>
+                    <label class="toggle-switch" title="切换游戏音效">
+                        <input type="checkbox" id="toggleSound" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div><!-- /.modal-body -->
+            <!-- 背景音乐选择面板 -->
+            <div class="setting-group" id="musicTrackPanel">
+                <h3 class="setting-group-title">🎧 背景音乐选择</h3>
+                <div class="music-track-cards">
+                    <div class="music-track-card music-track-hajimi unlocked selected" data-track="hajimi" id="musicTrackHajimi">
+                        <span class="music-track-name">原版哈基米</span>
+                        <span class="music-track-status unlocked-text">✅ 已解锁</span>
+                    </div>
+                    <div class="music-track-card music-track-nanbeilvdou1 locked" data-track="nanbeilvdou1" id="musicTrackNanbei1">
+                        <span class="music-track-name">搞怪曲 1</span>
+                        <span class="music-track-status locked-text">🔒 累计拾取恶魔道具100个解锁</span>
+                    </div>
+                    <div class="music-track-card music-track-nanbeilvdou2 locked" data-track="nanbeilvdou2" id="musicTrackNanbei2">
+                        <span class="music-track-name">搞怪曲 2</span>
+                        <span class="music-track-status locked-text">🔒 累计拾取恶魔道具200个解锁</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 恶魔道具累计展示 -->
+            <div class="setting-group evil-count-display" id="evilCountDisplay">
+                <h3 class="setting-group-title">😈 恶魔道具累计</h3>
+                <p class="evil-count-text" id="settingEvilCountText">当前累计恶魔道具：0 个</p>
+                <p class="evil-count-hint">累计 100 个解锁搞怪曲1 · 累计 200 个解锁搞怪曲2</p>
+            </div>
+            <!-- 重置历史记录 -->
+            <div class="setting-group reset-group">
+                <button class="btn btn-danger" id="btnResetHistory">重置所有本地历史记录</button>
+            </div>
+            <!-- 小猫皮肤选择面板 -->
+            <div class="skin-panel" id="skinPanel">
+                <h3 class="skin-panel-title">🎨 选择小猫皮肤</h3>
+                <div class="skin-cards">
+                    <!-- 橘色田园猫：默认解锁，CSS纯绘制无外部图片 -->
+                    <div class="skin-card skin-orange unlocked" data-skin="orange" id="skinCardOrange">
+                        <div class="skin-preview no-preview-img" id="skinPreviewOrange">
+                            <div class="skin-mini-cat skin-mini-orange">
+                                <div class="skin-mini-head"></div>
+                                <div class="skin-mini-body"></div>
+                            </div>
+                            <img class="skin-preview-img" src="" alt="橘色田园猫 预览" style="display:none;">
+                        </div>
+                        <span class="skin-name">橘色田园猫</span>
+                        <span class="skin-status unlocked-text">✅ 已解锁</span>
+                    </div>
+                    <!-- 优雅猫：5000分解锁 -->
+                    <div class="skin-card skin-youya locked" data-skin="youya" id="skinCardYouya">
+                        <div class="skin-preview">
+                            <img class="skin-preview-img" src="images/youya.png" alt="优雅猫 预览">
+                        </div>
+                        <span class="skin-name">优雅猫</span>
+                        <span class="skin-status locked-text" id="skinStatusYouya">🔒 累计5000分解锁</span>
+                    </div>
+                    <!-- 罚站猫：10000分解锁 -->
+                    <div class="skin-card skin-stand locked" data-skin="stand" id="skinCardStand">
+                        <div class="skin-preview">
+                            <img class="skin-preview-img" src="images/stand.png" alt="罚站猫 预览">
+                        </div>
+                        <span class="skin-name">罚站猫</span>
+                        <span class="skin-status locked-text" id="skinStatusStand">🔒 累计10000分解锁</span>
+                    </div>
+                    <!-- 击拳猫：30000分解锁 -->
+                    <div class="skin-card skin-jiquan locked" data-skin="jiquan" id="skinCardJiquan">
+                        <div class="skin-preview">
+                            <img class="skin-preview-img" src="images/jiquan.png" alt="击拳猫 预览">
+                        </div>
+                        <span class="skin-name">击拳猫</span>
+                        <span class="skin-status locked-text" id="skinStatusJiquan">🔒 累计30000分解锁</span>
+                    </div>
+                    <!-- 人你过来猫：50000分解锁 -->
+                    <div class="skin-card skin-rencomehere locked" data-skin="rencomehere" id="skinCardRencomehere">
+                        <div class="skin-preview">
+                            <img class="skin-preview-img" src="images/rencomehere.png" alt="人你过来猫 预览">
+                        </div>
+                        <span class="skin-name">人你过来猫</span>
+                        <span class="skin-status locked-text" id="skinStatusRencomehere">🔒 累计50000分解锁</span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal -->
+    </div><!-- /#modalSettings -->
+
+    <!-- 排行榜弹窗 -->
+    <div class="modal-overlay" id="modalLeaderboard" role="dialog" aria-hidden="true">
+        <div class="modal">
+            <button class="modal-close" aria-label="关闭">&times;</button>
+            <h2 class="modal-title">🏆 排行榜</h2>
+            <div class="modal-body">
+                <!-- 分难度展示最高分 -->
+                <div class="leaderboard-diff-section">
+                    <div class="lb-diff-item" id="lbEasy">
+                        <span class="lb-diff-label">🟢 简单</span>
+                        <span class="lb-diff-score">-</span>
+                    </div>
+                    <div class="lb-diff-item" id="lbNormal">
+                        <span class="lb-diff-label">🟠 一般</span>
+                        <span class="lb-diff-score">-</span>
+                    </div>
+                    <div class="lb-diff-item" id="lbHard">
+                        <span class="lb-diff-label">🔴 困难</span>
+                        <span class="lb-diff-score">-</span>
+                    </div>
+                    <!-- 【新增】限时挑战最高分 -->
+                    <div class="lb-diff-item lb-timed" id="lbTimed">
+                        <span class="lb-diff-label">⏱️ 限时挑战</span>
+                        <span class="lb-diff-score">-</span>
+                    </div>
+                </div>
+                <p class="lb-hint">刷新页面数据不会丢失 🐱</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏说明弹窗 -->
+    <div class="modal-overlay" id="modalInstructions" role="dialog" aria-hidden="true">
+        <div class="modal modal-wide">
+            <button class="modal-close" aria-label="关闭">&times;</button>
+            <h2 class="modal-title">❓ 游戏说明</h2>
+            <div class="modal-body">
+                <!-- 基础玩法 -->
+                <h3 class="instruction-section-title">🎮 基础玩法</h3>
+                <div class="instruction-content">
+                    <div class="instruction-item">
+                        <span class="instruction-icon">🐟</span>
+                        <p>操控小猫捕捉游动的鱼类获取分数：普通小鱼 2 分、中型鱼 3 分、大鱼 5 分；连击仅展示动画特效，不会额外增加分数。</p>
+                    </div>
+                </div>
+                <!-- 增益道具 -->
+                <h3 class="instruction-section-title">🎁 增益道具</h3>
+                <div class="instruction-content">
+                    <div class="instruction-item">
+                        <span class="instruction-icon">❤️</span>
+                        <p><strong>爱心：</strong>恢复 1 点生命值，生命上限 3 点，满血状态拾取无效果。</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">🛡️</span>
+                        <p><strong>护盾：</strong>8 秒无敌状态，碰撞障碍物不会扣除生命值，同步显示护盾特效。</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">⏳</span>
+                        <p><strong>沙漏：</strong>全局减速 6 秒，所有下落的小鱼、障碍物速度减半。</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">⚡</span>
+                        <p><strong>闪电：</strong>全局加速效果持续 5 秒。</p>
+                    </div>
+                </div>
+                <!-- 负面道具 -->
+                <h3 class="instruction-section-title">⚠️ 负面道具</h3>
+                <div class="instruction-content">
+                    <div class="instruction-item">
+                        <span class="instruction-icon">🦀</span>
+                        <p><strong>黑色螃蟹：</strong>拾取后 3 秒内小猫移动速度降低。</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">👿</span>
+                        <p><strong>恶魔道具：</strong>对局内 10%~15% 概率随机掉落；拾取弹出提示「邪恶哈基米值 + 1」，累计数值本地永久保存；累计 100 个解锁搞怪曲 1，累计 200 个解锁搞怪曲 2；重置本地记录后道具计数清零。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏结束弹窗 -->
+    <div class="modal-overlay" id="modalGameOver" role="dialog" aria-hidden="true">
+        <div class="modal">
+            <button class="modal-close" aria-label="关闭">&times;</button>
+            <h2 class="modal-title" id="goTitle">🎮 游戏结束</h2>
+            <!-- 新纪录庆祝提示（默认隐藏） -->
+            <div class="new-record-badge" id="newRecordBadge" style="display:none;">
+                <span class="new-record-icon">🎉</span>
+                <span class="new-record-text">恭喜！新纪录！</span>
+                <span class="new-record-icon">🎉</span>
+            </div>
+            <div class="modal-body game-over-body">
+                <div class="game-over-stat">
+                    <span class="go-label">🏆 本局得分</span>
+                    <span class="go-value" id="goScore">0</span>
+                </div>
+                <div class="game-over-stat">
+                    <span class="go-label">👑 当前难度最高分</span>
+                    <span class="go-value" id="goHighScore">0</span>
+                </div>
+                <div class="game-over-stat">
+                    <span class="go-label">📊 难度模式</span>
+                    <span class="go-value" id="goDifficulty">-</span>
+                </div>
+                <!-- 【新增】连击统计 -->
+                <div class="game-over-combo-stat" id="goComboStat">
+                    <span class="go-label">🔥 本局最高连击</span>
+                    <span class="combo-stat-value" id="goMaxCombo">0</span>
+                </div>
+                <!-- 【新增】道具拾取统计 -->
+                <div class="game-over-powerup-stats" id="goPowerupStats">
+                    <span class="go-label">🎁 道具拾取统计（共 <span id="goPowerupTotal">0</span> 次）</span>
+                    <div class="powerup-stats-grid" id="powerupStatsGrid">
+                        <!-- JS 动态填充 -->
+                    </div>
+                </div>
+                <!-- 【新增】高分庆祝文字（默认隐藏） -->
+                <div class="go-highscore-celebrate" id="goHighscoreCelebrate" style="display:none;">
+                    <span class="celebrate-text">🌟 太厉害了！高分达人！🌟</span>
+                </div>
+                <div class="game-over-buttons">
+                    <button class="btn btn-go-restart" id="btnRestart">🔄 再来一局</button>
+                    <button class="btn btn-go-difficulty" id="btnGoDifficulty">📋 重新选择难度</button>
+                    <button class="btn btn-go-home" id="btnGoHome">🏠 返回首页</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- /#modalGameOver -->
+
+    <!-- 【新增】烟花动画层 -->
+    <div class="fireworks-layer" id="fireworksLayer" style="display:none;"></div>
+
+    <!-- ==================== JavaScript 脚本 ==================== -->
+    <script src="main.js"></script>
+</body>
+</html>
